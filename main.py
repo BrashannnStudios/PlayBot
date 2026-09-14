@@ -1,8 +1,9 @@
 import asyncio
+import itertools
 import logging
 
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 from config import PREFIX, TOKEN
 from keep_alive import keep_alive
@@ -17,6 +18,19 @@ bot = commands.Bot(command_prefix=PREFIX, intents=intents, case_insensitive=True
 
 EXTENSIONS = ["welcome", "moderation", "warns", "notes"]
 
+PRESENCE_MESSAGES = itertools.cycle(["› Play big Studios", "› Dev: Supskevv!"])
+
+
+@tasks.loop(seconds=10)
+async def rotate_presence():
+    text = next(PRESENCE_MESSAGES)
+    await bot.change_presence(activity=discord.CustomActivity(name=text))
+
+
+@rotate_presence.before_loop
+async def before_rotate_presence():
+    await bot.wait_until_ready()
+
 
 @bot.event
 async def on_ready():
@@ -26,6 +40,8 @@ async def on_ready():
         print(f"Synced {len(synced)} slash command(s).")
     except Exception as e:
         print(f"Failed to sync slash commands: {e}")
+    if not rotate_presence.is_running():
+        rotate_presence.start()
 
 
 @bot.event
