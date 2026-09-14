@@ -264,40 +264,47 @@ class Moderation(commands.Cog):
     async def cmds(self, ctx: commands.Context):
         embed = base_embed(
             f"{EMOJI_SEARCH} Command List",
-            "Prefix: `?` ",
+            "Prefix: `?` (case-insensitive)",
             COLOR_INFO,
         )
         embed.add_field(
-            name="Channel Management",
+            name="Channels",
             value=(
                 "`?lock {channel}`\n`?unlock {channel}`\n`?slowmode {channel} {time}`"
             ),
-            inline=False,
+            inline=True,
         )
         embed.add_field(
-            name="Member Management",
+            name="Members",
             value=(
                 "`?userinfo {user}`\n`?dm {user} {message}`\n"
-                "`?mute {user} {reason}`\n`?unmute {user}`\n"
+                "`?mute {user} {reason}`\n`?unmute {user}`"
+            ),
+            inline=True,
+        )
+        embed.add_field(
+            name="Bans",
+            value=(
                 "`?ban {user} {reason}`\n`?tempban {user} {duration} {reason}`\n"
                 "`?unban {user-id} {reason}`"
             ),
-            inline=False,
+            inline=True,
         )
         embed.add_field(
             name="Warnings",
             value=(
                 "`?warn {user} {reason}`\n`?delwarn {user} {warn-id}`\n`?warnings {user}`"
             ),
-            inline=False,
+            inline=True,
         )
         embed.add_field(
             name="Notes",
             value=(
                 "`?addnote {user} {note}`\n`?removenote {user} {note-id}`\n`?viewnotes {user}`"
             ),
-            inline=False,
+            inline=True,
         )
+        embed.add_field(name="\u200b", value="\u200b", inline=True)
         await ctx.send(embed=embed)
 
 
