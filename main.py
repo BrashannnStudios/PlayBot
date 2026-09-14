@@ -52,6 +52,12 @@ async def on_command_error(ctx: commands.Context, error: commands.CommandError):
         await ctx.send(f"Missing argument: `{error.param.name}`.")
     elif isinstance(error, commands.MemberNotFound):
         await ctx.send("I couldn't find that member.")
+    elif isinstance(error, commands.UserNotFound):
+        await ctx.send("I couldn't find that user.")
+    elif isinstance(error, commands.ChannelNotFound):
+        await ctx.send(f"I couldn't find a channel called `{error.argument}`.")
+    elif isinstance(error, commands.BadArgument):
+        await ctx.send(f"Invalid argument: {error}")
     elif isinstance(error, commands.CommandNotFound):
         return
     else:
