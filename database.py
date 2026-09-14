@@ -5,6 +5,7 @@ client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_URI)
 db = client["play_big_studios"]
 
 welcome_config = db["welcome_config"]
+vacants_config = db["vacants_config"]
 warns_collection = db["warns"]
 notes_collection = db["notes"]
 mutes_collection = db["mutes"]
@@ -31,6 +32,18 @@ async def get_welcome_config(guild_id: int):
 
 async def set_welcome_config(guild_id: int, data: dict):
     await welcome_config.update_one(
+        {"guild_id": guild_id},
+        {"$set": data},
+        upsert=True,
+    )
+
+
+async def get_vacants_config(guild_id: int):
+    return await vacants_config.find_one({"guild_id": guild_id})
+
+
+async def set_vacants_config(guild_id: int, data: dict):
+    await vacants_config.update_one(
         {"guild_id": guild_id},
         {"$set": data},
         upsert=True,
