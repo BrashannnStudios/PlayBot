@@ -264,7 +264,7 @@ class Moderation(commands.Cog):
     async def cmds(self, ctx: commands.Context):
         embed = base_embed(
             f"{EMOJI_SEARCH} Command List",
-            "Prefix: `?` (case-insensitive)",
+            "Prefix: `?` ",
             COLOR_INFO,
         )
         embed.add_field(
