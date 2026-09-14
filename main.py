@@ -16,7 +16,7 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix=PREFIX, intents=intents, case_insensitive=True, help_command=None)
 
-EXTENSIONS = ["welcome", "moderation", "warns", "notes"]
+EXTENSIONS = ["welcome", "vacants", "moderation", "warns", "notes"]
 
 PRESENCE_MESSAGES = itertools.cycle(["› Play big Studios", "› Dev: Supskevv!"])
 
